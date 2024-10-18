@@ -1,9 +1,14 @@
 # Example 1: Loading a CSV file into a DataFrame
 
 import pandas as pd
+from pathlib import Path
 
 # Load a CSV file into a DataFrame
-df = pd.read_csv('datasets/cars.csv')
+path = Path(r"C:\Users\karol\git\ait_pg_2024\datasets\cars.csv")
+
+# from pathlib import Path, PurePath
+# path = PurePath(Path.cwd().parents[1].joinpath('datasets/cars.csv'))
+# pd.read_csv(path)
 
 # from pathlib import Path, PurePath
 # path = PurePath(Path.cwd().parents[1].joinpath('datasets/cars.csv'))
