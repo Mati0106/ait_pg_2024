@@ -10,10 +10,6 @@ path = Path(r"C:\Users\karol\git\ait_pg_2024\datasets\cars.csv")
 # path = PurePath(Path.cwd().parents[1].joinpath('datasets/cars.csv'))
 # pd.read_csv(path)
 
-# from pathlib import Path, PurePath
-# path = PurePath(Path.cwd().parents[1].joinpath('datasets/cars.csv'))
-# pd.read_csv(path)
-
 # Display the first few rows of the DataFrame
 print(df.head(1200))
 pd.set_option('display.max_columns',9)
