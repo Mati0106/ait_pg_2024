@@ -1,13 +1,10 @@
 # Example 1: Loading a CSV file into a DataFrame
 
 import pandas as pd
-from pathlib import Path
 
 # Load a CSV file into a DataFrame
 
-
-
-path = Path(r"C:\Users\karol\git\ait_pg_2024\datasets\cars.csv")
+df = pd.read_csv('datasets/cars.csv')
 
 # Display the first few rows of the DataFrame
 print(df.head())
