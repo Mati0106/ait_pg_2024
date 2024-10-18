@@ -49,13 +49,16 @@ y = iris_df["species"]
 
 # Standardize features
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+
 
 # Split the dataset into training and test sets
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_tr_scaled = scaler.fit_transform(X_train)
+X_ts_scaled = scaler.transform(X_test)
 
-print("Number of training samples:", len(X_train))
-print("Number of test samples:", len(X_test))
+
+print("Number of training samples:", len(X_tr_scaled))
+print("Number of test samples:", len(X_tr_scaled))
 # Here, we preprocess the data by standardizing the features and splitting the dataset into training and test sets.
 
 # Example 3: Training a Machine Learning Model
@@ -65,18 +68,18 @@ from sklearn.linear_model import LogisticRegression
 
 # Initialize and train a logistic regression model
 model = LogisticRegression(max_iter=1000)
-model.fit(X_train, y_train)
+model.fit(X_tr_scaled, y_train)
 
 # Evaluate the model on the test set
-accuracy = model.score(X_test, y_test)
+accuracy = model.score(X_ts_scaled, y_test)
 print("Model accuracy:", accuracy)
 # This example illustrates how to train a simple machine learning model (logistic regression) using scikit-learn.
 
 # Example 4: Making Predictions
 
 # Use the trained model to make predictions on the test set
-predictions = model.predict(X_test)
-
+predictions = model.predict(X_ts_scaled)
+model.coef_
 # Display some sample predictions and corresponding true labels
 print("Sample predictions:")
 for i in range(5):
