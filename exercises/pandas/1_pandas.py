@@ -1,12 +1,18 @@
 # Example 1: Loading a CSV file into a DataFrame
 
 import pandas as pd
+from pathlib import Path
 
 # Load a CSV file into a DataFrame
-df = pd.read_csv('datasets/cars.csv')
+path = Path(r"C:\Users\karol\git\ait_pg_2024\datasets\cars.csv")
+
+# from pathlib import Path, PurePath
+# path = PurePath(Path.cwd().parents[1].joinpath('datasets/cars.csv'))
+# pd.read_csv(path)
 
 # Display the first few rows of the DataFrame
-print(df.head())
+print(df.head(1200))
+pd.set_option('display.max_columns',9)
 # In this example, we use the read_csv function from Pandas to load a CSV file named data.csv into a DataFrame.
 
 # Example 2: Exploring DataFrame Information
@@ -26,7 +32,8 @@ print("\nDataFrame Shape:", df.shape)
 # Example 3: Selecting and Filtering Data
 
 # Select a single column
-column_data = df['Column_Name']
+column_data = df[['mpg','displacement']].groupby('displacement').agg({"mpg":"mean"})
+df.dtypes
 
 # Select multiple columns
 multiple_columns = df[['Column1', 'Column2']]
@@ -52,3 +59,19 @@ df_dropna = df.dropna()
 # Fill missing values with a specified value
 df_fillna = df.fillna(0)
 # In this example, we demonstrate how to handle missing values by either dropping rows with missing values or filling them with a specified value.
+
+
+# ex1
+# Divide table length by 3,
+# for first part of rows, assign value 'a'
+# for secound part of rows assign value 'b'
+# for thrid part of rows assign value 'c'
+# create new column and name it target
+
+# ex2
+# For all numeric columns, select col and target col,
+# for each of those objects use Parralel + delayed to calculate mean() on this object
+
+# ex3
+# Filter all unique elements in target column and create 3 datasets,
+# for each of them run in Parralel + delayed, pandas-profiling report
