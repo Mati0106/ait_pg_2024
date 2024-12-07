@@ -4,9 +4,9 @@ Model na podstawie podanych cech bohatera określa jego przynależnośc do jedne
 
 Projekt składa się z następujących plików
 - [requirements.txt](requirements.txt) - informacja o wymaganych bibliotekach
-- [my_report.html](my_report.html) - raport z analiza statystyczną danych
-- [data_set_profile.ipnyb](data_set_profile.ipynb) - skrypt wykorzystany do wygenerowania [my_report.html](my_report.html)
 - [data_analysis_and_preparation.ipynb](data_analysis_and_preparation.ipynb) - skrypt zawierający operacje przygotowujące data set do modelowania
+- [data_set_profile.ipnyb](data_set_profile.ipynb) - skrypt wykorzystany do wygenerowania [my_report.html](my_report.html)
+- [my_report.html](my_report.html) - raport z analiza statystyczną danych
 - [model.ipynb](model.ipynb) - właściwy skrypt w którym odbywa się końcowe przygtowanie danych do modelowanie (SMOTE, PCA), samo modelowanie, dostrajanie i analiza modelu przy pomocy wartości Shapleya
 - [utils](utils) - katalog ze skryptami pomocniczymi:
   - [analizing_utlis.py](utils/analizing_utils.py) - funkcje wykorzystane przy analizie i przygotowaniu danych
