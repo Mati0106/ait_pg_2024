@@ -39,7 +39,7 @@ The main model, XGBoost, is optimized using Optuna for better performance.
 ## Evaluation
 - **Final MSE**: The final model achieves a Mean Squared Error (MSE) of 111.48.
 - **R-squared (R2)**: The model explains 61% of the variance in the data.
-- **Accuracy**: The model correctly predicts the winning team 83.7% of the time.
+- **Accuracy**: The model correctly predicts the winning team 83.12% of the time.
 
 ## Visualization
 SHAP is used to explain feature importance and impact on predictions, providing insights into model behavior.

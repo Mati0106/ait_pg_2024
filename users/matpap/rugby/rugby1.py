@@ -135,8 +135,13 @@ study = optuna.create_study(direction='minimize')
 study.optimize(objective, n_trials=150)
 
 # Visualise study (not working in my PyCharm)
+# plt.rcParams['backend'] = "Qt5Agg"
+# print(plt.get_backend())
+# plt.interactive(False)
+
 fig = plot_optimization_history(study)
-fig.show()
+# fig.show(block=True)
+fig.write_image(os.getcwd() + "\\users\\matpap\\rugby\\optimization_history.png")
 
 # Best hyperparams
 best_params = study.best_params
@@ -146,6 +151,7 @@ print("Best hyperparams:", best_params)
 final_model = xgb.XGBRegressor(**best_params, random_state=42)
 final_model.fit(X_train, y_train)
 
+### Evaluation ###
 # Evaluate and print results
 y_pr = final_model.predict(X_test)
 final_mse = mean_squared_error(y_test, y_pr)
@@ -154,22 +160,19 @@ print(f"Final Mean Squared Error (MSE): {final_mse:.2f}")
 print(f"R-squared (R2): {r2:.2f}")
 print("=" * 50)
 
-
-### Evaluation ###
-# Visualise results (if they are at the same side of the axis)
-# Create plot and show
-plt.figure(figsize=(10, 5))
-plt.plot(y_test, label='y_test', marker='o')
-plt.plot(y_pr, label='y_pred', marker='x')
-plt.title('Comparison of y_test and y_pred')
-plt.xlabel('Index')
-plt.ylabel('Value')
+# Show results plot
+plt.figure(figsize=(8, 6))
+plt.scatter(y_test, y_pr, color='blue', alpha=0.5, label='Predicted vs Actual')
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='red', linestyle='--', label='Ideal Fit')
+plt.title('Comparison of Actual and Predicted Margins')
+plt.xlabel('Actual Margins')
+plt.ylabel('Predicted Margins')
 plt.legend()
-plt.show()
+plt.grid(True)
+plt.savefig(os.getcwd() + "\\users\\matpap\\rugby\\predicted_vs_actual.png")
 
-# Check code instead
-# Function to determine the sign of a number
-def sign(num):
+# Function to check accuracy
+def sign(num: float,) -> int:
     if num > 0:
         return 1
     elif num < 0:
@@ -184,29 +187,30 @@ false_count = sum(sign(y_t) != sign(y_p) for y_t, y_p in zip(y_test, y_pr))
 # Calculating the percentage of cases with different signs
 total_count = len(y_test)
 percent_false = (false_count / total_count) * 100
+percent_correct = 100 - percent_false
 
 # Displaying the count of discrepancies and the percentage
 print(f"Number of cases where signs differ: {false_count}")
-print(f"Accuracy: {percent_false:.2f}%")
+print(f"Accuracy: {percent_correct:.2f}%")
 
 # Explain the model's predictions using SHAP
-feature_names = df.columns
+feature_names = X_test.columns
 explainer = shap.Explainer(final_model, X_train)
 shap_values = explainer(X_test)
 
 # SHAP Summary Plot (global feature importance)
 plt.figure()  # Create a new figure
 shap.summary_plot(shap_values, X_test, feature_names=feature_names)
-plt.show()  # Display the plot
+plt.savefig(os.getcwd() + "\\users\\matpap\\rugby\\shap_summary.png")
 
 # SHAP Dependence Plot (feature vs. SHAP value)
-shap.dependence_plot('home_form', shap_values.values, X_test, feature_names=feature_names)
-plt.show()  # Display the plot
+shap.dependence_plot('away_form', shap_values.values, X_test, feature_names=feature_names)
+plt.savefig(os.getcwd() + "\\users\\matpap\\rugby\\away_form.png")
 
 # SHAP Waterfall Plot (breakdown of individual prediction)
 plt.figure()  # Create a new figure
 shap.plots.waterfall(shap_values[0])
-plt.show()  # Display the plot
+plt.savefig(os.getcwd() + "\\users\\matpap\\rugby\\shap_water.png")
 
 
 
