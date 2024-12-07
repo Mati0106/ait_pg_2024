@@ -28,8 +28,9 @@ print(df.shape)
 print(df.head())
 
 # Create report to view basic data statistics and save to html
+path = os.getcwd() + "\\users\\matpap\\rugby\\"
 report = ProfileReport(df, title='Rugby')
-report.to_file(os.getcwd() + "\\users\\matpap\\rugby\\Rugby.html")
+report.to_file(path + "Rugby.html")
 
 # Add a column representing the margin in favour of the 'home' team
 df['margin'] = df['home_score'] - df['away_score']
@@ -201,16 +202,16 @@ shap_values = explainer(X_test)
 # SHAP Summary Plot (global feature importance)
 plt.figure()  # Create a new figure
 shap.summary_plot(shap_values, X_test, feature_names=feature_names)
-plt.savefig(os.getcwd() + "\\users\\matpap\\rugby\\shap_summary.png")
+plt.savefig(path + "shap_summary.png")
 
 # SHAP Dependence Plot (feature vs. SHAP value)
 shap.dependence_plot('away_form', shap_values.values, X_test, feature_names=feature_names)
-plt.savefig(os.getcwd() + "\\users\\matpap\\rugby\\away_form.png")
+plt.savefig(path + "away_form.png")
 
 # SHAP Waterfall Plot (breakdown of individual prediction)
 plt.figure()  # Create a new figure
 shap.plots.waterfall(shap_values[0])
-plt.savefig(os.getcwd() + "\\users\\matpap\\rugby\\shap_water.png")
+plt.savefig(path + "shap_water.png")
 
 
 
