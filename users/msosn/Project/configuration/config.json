@@ -1,0 +1,25 @@
+{
+ "data_split_random_state": 50,
+ "smote_random_state": 1234,
+ "features_names": [
+  "intelligence",
+  "strength",
+  "speed",
+  "durability",
+  "power",
+  "combat",
+  "publisher",
+  "gender",
+  "height",
+  "weight",
+  "eye-color",
+  "hair-color"
+ ],
+ "prediction_column": "alignment",
+ "prediction_categories": [
+  "-",
+  "bad",
+  "good",
+  "neutral"
+ ]
+}
